@@ -74,4 +74,9 @@ python3 ai_helper.py describe flow.text_record_lifecycle
 
 - Local logs, virtual environments, local configuration, private planning files, and the built macOS `.app` bundle are ignored by Git.
 - The repository is intended to be reused as a starter, not as a production SaaS service.
-- If you want browser-based public demos, you can add a separate web demo later without changing the core data model.
+
+## Safety and Platform
+
+This project is built to help Codex and similar AI coding agents manage files, flows, and task context more clearly. It does not upload your repository data to a hosted cloud service or require a remote account to work. The system runs locally in your project workspace. Some optional local artifacts, such as `flows/` documents or `flow_memory_logs/`, may be written inside your own project folder, but they stay on your machine unless you choose to commit or share them.
+
+The current packaged desktop launcher is macOS-oriented. The Python source can still be adapted to other platforms, but the polished desktop workflow in this repository is currently focused on macOS.
