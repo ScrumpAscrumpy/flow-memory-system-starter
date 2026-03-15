@@ -1,0 +1,15 @@
+id: entity.text_record
+name: Text Record
+type: entity
+description: Domain entity representing a persisted text record.
+files:
+  - src/features/records/model.ts
+functions:
+  - createTextRecord
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: medium
+change_rules:
+  - Keep entity shape consistent with persistence and editor state.
+failure_modes:
+  - Stored records cannot be parsed back into UI state.

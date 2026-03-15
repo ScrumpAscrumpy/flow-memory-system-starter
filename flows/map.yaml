@@ -1,0 +1,60 @@
+version: 1
+flows:
+  - id: flow.text_record_lifecycle
+    line: L1
+    color: amber
+    nodes:
+      - route.records_editor
+      - page.records_editor
+      - ui.record_input
+      - state.record_editor
+      - ui.save_record_button
+      - ui.delete_record_button
+      - persistence.text_records
+      - service.record_repository
+      - route.records_list
+    notes: Editor flow for creating, saving, and deleting text records.
+  - id: flow.record_list_refresh
+    line: L2
+    color: teal
+    nodes:
+      - route.records_list
+      - page.records_list
+      - ui.refresh_list_button
+      - state.record_list
+      - persistence.text_records
+      - service.record_repository
+    notes: List flow for reloading records after persistence changes.
+transfer_nodes:
+  - id: route.records_list
+    connects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: The list route links return navigation and refresh behavior.
+  - id: persistence.text_records
+    connects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: Shared persistence drives both save/delete and list refresh.
+  - id: service.record_repository
+    connects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: Shared repository logic is used by both flows.
+impact_rules:
+  - node: route.records_list
+    affects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: Route changes alter editor return paths and list entry behavior.
+  - node: persistence.text_records
+    affects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: Persistence contract changes can break save/delete and reload flows together.
+  - node: service.record_repository
+    affects:
+      - flow.text_record_lifecycle
+      - flow.record_list_refresh
+    notes: Repository updates affect both mutation and refresh paths.
+notes: Example Metro Map for the sample records flows.

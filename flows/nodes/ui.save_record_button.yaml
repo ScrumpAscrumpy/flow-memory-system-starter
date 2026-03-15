@@ -1,0 +1,15 @@
+id: ui.save_record_button
+name: Save Record Button
+type: ui
+description: Button that persists the current text record.
+files:
+  - src/features/records/editor/actions.tsx
+functions:
+  - handleSaveRecord
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: high
+change_rules:
+  - Confirm save updates persistence and downstream refresh signals.
+failure_modes:
+  - Save action succeeds locally but does not refresh the list.

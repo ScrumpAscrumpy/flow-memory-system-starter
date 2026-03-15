@@ -1,0 +1,17 @@
+id: route.records_list
+name: Records List Route
+type: route
+description: Route that displays the list of stored text records.
+files:
+  - src/app/routes/records-list.tsx
+functions:
+  - renderRecordsListRoute
+owned_by_flows:
+  - flow.text_record_lifecycle
+  - flow.record_list_refresh
+risk_level: high
+change_rules:
+  - Check both list entry and editor return paths when the route changes.
+failure_modes:
+  - Back-navigation returns users to the wrong screen.
+notes: Shared route node used by both example flows.

@@ -1,0 +1,15 @@
+id: ui.record_input
+name: Record Input
+type: ui
+description: Text input where the user edits a record.
+files:
+  - src/features/records/editor/form.tsx
+functions:
+  - handleRecordInputChange
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: medium
+change_rules:
+  - Preserve controlled input behavior and editor state updates.
+failure_modes:
+  - User input is not reflected in editor state.

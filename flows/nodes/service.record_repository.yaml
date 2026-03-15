@@ -1,0 +1,19 @@
+id: service.record_repository
+name: Record Repository Service
+type: service
+description: Service layer that reads and writes text records.
+files:
+  - src/features/records/repository.ts
+functions:
+  - fetchRecords
+  - persistRecord
+  - removeRecord
+owned_by_flows:
+  - flow.text_record_lifecycle
+  - flow.record_list_refresh
+risk_level: high
+change_rules:
+  - Review both save/delete and reload paths when repository logic changes.
+failure_modes:
+  - Service writes succeed but list refresh still uses stale data.
+notes: Shared service node for both example flows.

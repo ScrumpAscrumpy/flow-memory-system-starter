@@ -1,0 +1,54 @@
+id: flow.record_list_refresh
+name: Record List Refresh
+goal: Reload the record list from shared persistence after save, delete, or manual refresh.
+status: active
+entry_points:
+  - route.records_list
+triggers:
+  - "user_refresh: ui.refresh_list_button"
+  - "system_restore: persistence.text_records"
+steps:
+  - step_id: s1
+    action: load_records
+    actor: ui.refresh_list_button
+    target: state.record_list
+    output: records_payload
+    store: persistence.text_records
+    service: service.record_repository
+    notes: The list requests the latest persisted records.
+  - step_id: s2
+    action: hydrate_list
+    actor: state.record_list
+    target: page.records_list
+    input: records_payload
+    output:
+      - visible_records
+      - list_ready
+    notes: The list state is re-hydrated before rendering.
+outputs:
+  - visible_records
+  - list_ready
+persistence:
+  - id: persistence.text_records
+    type: local_storage
+    required: true
+    notes: The list flow reads the same persistence node as the editor flow.
+anchor_nodes:
+  - route.records_list
+  - page.records_list
+  - state.record_list
+  - persistence.text_records
+  - service.record_repository
+anchor_files:
+  - src/features/records/list/page.tsx
+  - src/features/records/list/state.ts
+  - src/features/records/repository.ts
+watch_points:
+  - Reloaded list state must reflect the latest saved or deleted records.
+  - Manual refresh should not create duplicate list items.
+common_failures:
+  - Saved record not shown after reload.
+  - Stale records remain visible after delete.
+related_flows:
+  - flow.text_record_lifecycle
+notes: Example Flow Card for refresh behavior that depends on shared persistence.

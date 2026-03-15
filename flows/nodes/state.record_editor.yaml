@@ -1,0 +1,15 @@
+id: state.record_editor
+name: Record Editor State
+type: state
+description: Client-side state container for the editor page.
+files:
+  - src/features/records/editor/state.ts
+functions:
+  - useRecordEditorState
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: high
+change_rules:
+  - Keep editor state resets aligned with save and delete transitions.
+failure_modes:
+  - Editor state persists stale text after record deletion.

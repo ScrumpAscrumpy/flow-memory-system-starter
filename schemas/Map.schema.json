@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flow-memory.local/schemas/Map.schema.json",
+  "title": "Flow Memory System Metro Map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "flows"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "flows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flowMapItem"
+      }
+    },
+    "transfer_nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/transferNode"
+      }
+    },
+    "impact_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/impactRule"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "flowId": {
+      "type": "string",
+      "pattern": "^flow\\.[a-z0-9_]+(?:\\.[a-z0-9_]+)?$"
+    },
+    "nodeId": {
+      "type": "string",
+      "pattern": "^(page|route|ui|action|entity|state|persistence|service|component|api|function)[.:][a-z0-9_]+(?:[.:][a-z0-9_]+)*$"
+    },
+    "flowMapItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "line",
+        "nodes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/flowId"
+        },
+        "line": {
+          "type": "string",
+          "pattern": "^L[1-9][0-9]*$"
+        },
+        "color": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nodeId"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "transferNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "connects"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "connects": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/flowId"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "impactRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "affects"
+      ],
+      "properties": {
+        "node": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "affects": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/flowId"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

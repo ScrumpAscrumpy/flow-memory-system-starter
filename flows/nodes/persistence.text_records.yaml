@@ -1,0 +1,18 @@
+id: persistence.text_records
+name: Text Records Persistence
+type: persistence
+description: Shared persistence key for storing text records between sessions.
+files:
+  - src/features/records/persistence.ts
+functions:
+  - loadTextRecords
+  - saveTextRecords
+owned_by_flows:
+  - flow.text_record_lifecycle
+  - flow.record_list_refresh
+risk_level: high
+change_rules:
+  - Check both editor and list flows whenever this persistence contract changes.
+failure_modes:
+  - Refresh restores an outdated or empty record set.
+notes: Shared transfer node for both example flows.

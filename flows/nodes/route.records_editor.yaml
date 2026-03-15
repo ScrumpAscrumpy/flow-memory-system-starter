@@ -1,0 +1,16 @@
+id: route.records_editor
+name: Records Editor Route
+type: route
+description: Route that opens the text record editor.
+files:
+  - src/app/routes/records-editor.tsx
+functions:
+  - renderRecordsEditorRoute
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: medium
+change_rules:
+  - Keep route names aligned with editor page navigation.
+failure_modes:
+  - Editor route loads without the expected page shell.
+notes: Example route node for the editor flow.

@@ -1,0 +1,15 @@
+id: page.records_list
+name: Records List Page
+type: page
+description: Page that renders the list of persisted text records.
+files:
+  - src/features/records/list/page.tsx
+functions:
+  - RecordsListPage
+owned_by_flows:
+  - flow.record_list_refresh
+risk_level: medium
+change_rules:
+  - Verify rendering behavior after state hydration changes.
+failure_modes:
+  - Page renders empty while records exist in persistence.

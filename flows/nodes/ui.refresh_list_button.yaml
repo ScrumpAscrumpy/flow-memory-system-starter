@@ -1,0 +1,15 @@
+id: ui.refresh_list_button
+name: Refresh List Button
+type: ui
+description: Button that reloads the record list from shared persistence.
+files:
+  - src/features/records/list/actions.tsx
+functions:
+  - handleRefreshList
+owned_by_flows:
+  - flow.record_list_refresh
+risk_level: medium
+change_rules:
+  - Verify refresh does not duplicate or drop records.
+failure_modes:
+  - Refresh action completes without rehydrating the visible list.

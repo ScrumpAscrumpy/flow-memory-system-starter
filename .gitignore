@@ -1,0 +1,17 @@
+.DS_Store
+.flow_memory_config.yaml
+.venv/
+__pycache__/
+*.pyc
+
+flow_memory_logs/
+Flow Memory System.app/
+macos/Flow Memory System.bundle-src/
+
+00-how-to-feed-codex.md
+01-product-overview.md
+02-core-concepts.md
+03-schema-spec.md.pdf
+04-ai-protocol.md
+05-repo-layout.md
+06-implementation-plan.md

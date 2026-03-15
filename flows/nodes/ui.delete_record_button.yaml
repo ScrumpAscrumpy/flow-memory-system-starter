@@ -1,0 +1,15 @@
+id: ui.delete_record_button
+name: Delete Record Button
+type: ui
+description: Button that deletes the current text record.
+files:
+  - src/features/records/editor/actions.tsx
+functions:
+  - handleDeleteRecord
+owned_by_flows:
+  - flow.text_record_lifecycle
+risk_level: high
+change_rules:
+  - Verify delete updates persistence and removes stale state.
+failure_modes:
+  - Record is removed from storage but remains visible in UI.

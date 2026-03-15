@@ -1,0 +1,68 @@
+id: flow.text_record_lifecycle
+name: Text Record Lifecycle
+goal: Create, persist, edit, and delete a text record from the editor.
+status: active
+entry_points:
+  - route.records_editor
+triggers:
+  - "user_open: route.records_editor"
+  - "user_submit: ui.save_record_button"
+  - "user_delete: ui.delete_record_button"
+steps:
+  - step_id: s1
+    action: edit_text
+    actor: ui.record_input
+    target: entity.text_record
+    output: draft_text
+    notes: User enters or updates text in the editor.
+  - step_id: s2
+    action: persist_text
+    actor: ui.save_record_button
+    target: entity.text_record
+    output:
+      - saved_record
+      - list_refresh_signal
+    store: persistence.text_records
+    service: service.record_repository
+    notes: Saved text is written to shared persistence for the list flow.
+  - step_id: s3
+    action: delete_text
+    actor: ui.delete_record_button
+    target: entity.text_record
+    output: deleted_record
+    store: persistence.text_records
+    service: service.record_repository
+    notes: Deleting a record must also clear the editor state.
+outputs:
+  - saved_record
+  - deleted_record
+  - list_refresh_signal
+persistence:
+  - id: persistence.text_records
+    type: local_storage
+    required: true
+    notes: Records are cached in browser storage for quick restore.
+return_paths:
+  - from: page.records_editor
+    to: route.records_list
+    trigger: ui.back_to_list_button
+    notes: Return to the list after saving, deleting, or canceling.
+anchor_nodes:
+  - route.records_editor
+  - page.records_editor
+  - state.record_editor
+  - persistence.text_records
+  - service.record_repository
+anchor_files:
+  - src/features/records/editor/page.tsx
+  - src/features/records/editor/state.ts
+  - src/features/records/repository.ts
+watch_points:
+  - Editor state must stay in sync with persisted records after save or delete.
+  - Navigation back to the list should not lose the latest saved text.
+common_failures:
+  - Refresh causes record loss.
+  - Delete not reflected in UI.
+related_flows:
+  - flow.record_list_refresh
+notes: Example Flow Card based on the text record lifecycle described in the design documents.

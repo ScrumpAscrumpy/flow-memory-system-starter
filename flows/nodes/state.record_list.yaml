@@ -1,0 +1,15 @@
+id: state.record_list
+name: Record List State
+type: state
+description: Client-side state container for the records list page.
+files:
+  - src/features/records/list/state.ts
+functions:
+  - useRecordListState
+owned_by_flows:
+  - flow.record_list_refresh
+risk_level: high
+change_rules:
+  - Confirm hydration logic stays aligned with persistence changes.
+failure_modes:
+  - List state renders stale data after a refresh.
