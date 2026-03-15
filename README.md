@@ -1,21 +1,51 @@
 # Flow Memory System
 
-Flow Memory System is a lightweight toolkit for documenting a codebase as business flows instead of only folders and files. It gives developers and AI coding assistants a shared memory layer for finding the right files, understanding shared nodes, and making safer changes.
+Flow Memory System is a starter toolkit for documenting a codebase as business flows instead of only folders and files. It helps human contributors and AI coding agents work from the same structured view of routes, pages, actions, shared services, persistence points, and cross-flow impact.
 
-## What Is Included
+[中文说明](README.zh-CN.md)
 
-- `flows/`: example Flow Cards, Nodes, and Metro Map data
-- `schemas/`: JSON Schema files for Flow Card, Node, and Map validation
-- `flow_memory.py`: YAML loading and validation
-- `ai_helper.py`: helper functions for flow lookup, anchor file suggestions, and human-readable flow descriptions
-- `fm_app.py`: Tkinter desktop GUI
-- `validate.py`: CLI validation entry point
-- `analyze_logs.py`: log analysis for usage and efficiency metrics
-- `build_mac_app.command`: rebuild the macOS app launcher
+## Template Layout
 
-## Common Tasks
+```text
+flow-memory-system/
+  docs/
+    USER_GUIDE.md
+    STARTER_GUIDE.md
+    SCREENSHOTS.md
+    screenshots/
+  flows/
+    cards/
+    nodes/
+    map.yaml
+    conventions.md
+  schemas/
+    FlowCard.schema.json
+    Node.schema.json
+    Map.schema.json
+  CODEX_ONBOARDING_PROMPT.md
+  fm_app.py
+  flow_memory.py
+  ai_helper.py
+  validate.py
+```
 
-Validate the current project:
+## What This Repository Provides
+
+- Example `flows/` and `schemas/` data so the system runs immediately
+- Python validation and query helpers
+- A Tkinter desktop GUI for non-technical users
+- Plain-language flow narration for route and jump logic
+- A reusable onboarding prompt for AI agents
+
+## Quick Start
+
+Install dependencies:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+Validate the example project:
 
 ```bash
 python3 validate.py
@@ -27,24 +57,21 @@ Launch the GUI:
 python3 fm_app.py
 ```
 
-Describe a flow as a plain-language chain:
+Generate a plain-language flow narrative:
 
 ```bash
 python3 ai_helper.py describe flow.text_record_lifecycle
 ```
 
-Rebuild the macOS app launcher:
-
-```bash
-./build_mac_app.command
-```
-
 ## Documentation
 
-- [USER_GUIDE.md](USER_GUIDE.md): bilingual end-user guide
-- [fornewprojectREADME.md](fornewprojectREADME.md): onboarding notes for teams adopting Flow Memory in a new repository
-- [CODEX_ONBOARDING_PROMPT.md](CODEX_ONBOARDING_PROMPT.md): prompt template for AI agents working in a new project
+- [docs/USER_GUIDE.md](docs/USER_GUIDE.md): end-user and GUI guide
+- [docs/STARTER_GUIDE.md](docs/STARTER_GUIDE.md): how to adopt Flow Memory in a new repository
+- [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md): real screenshots and UI walkthrough
+- [CODEX_ONBOARDING_PROMPT.md](CODEX_ONBOARDING_PROMPT.md): onboarding prompt for AI agents
 
-## Repository Hygiene
+## Notes for Public Reuse
 
-This public repository intentionally excludes local configuration, virtual environments, logs, and internal design documents. If you reuse this project as a starter, keep your own private planning documents outside version control or add them to `.gitignore`.
+- Local logs, virtual environments, local configuration, private planning files, and the built macOS `.app` bundle are ignored by Git.
+- The repository is intended to be reused as a starter, not as a production SaaS service.
+- If you want browser-based public demos, you can add a separate web demo later without changing the core data model.
